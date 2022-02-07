@@ -1,12 +1,37 @@
-﻿@model IEnumerable<Order_Test.Models.Order>
+﻿@model Order_Test.Models.Order
 
-    <form method="post">
-        <label>Логин:</label><br />
-        <input type="text" name="price" /><br /><br />
-        <label>Пароль:</label><br />
-        <input type="text" name="password" /><br /><br />
-        <input type="submit" value="Отправить" />
-    </form>
+    <label>@Model.Client.FirstName</label>
 
+<form method="post">
+    <div class="col-4">
+        <label asp-for="TotalPrice"></label>
+    </div>
+    <div class="col-4">
+        <input asp-for="TotalPrice" class="form-control" />
+        <span asp-validation-for="TotalPrice" class="text-danger"></span>
+    </div>
+
+
+
+
+    <input asp-for="Type" type="radio" value="@Model.Type.HasFlag(Payment.PaymentType.Cash)" />
+    <span>Cash</span> <br />
+    <input asp-for="Type" type="radio" value="@Model.Type.HasFlag(Payment.PaymentType.Installment)" />
+    <span>Installment</span> <br />
+
+    <p>
+        <label for="phone">Choose :</label>
+        <select name="phone">
+            <option value="@Model.">12</option>
+            <option value="Lumia 950 XL">24</option>
+            <option value="HTC 10">36</option>
+        </select>
+    </p>
+
+    <br />
+    <p>
+        <input type="submit" value="Create" />
+    </p>
+</form>
 
 

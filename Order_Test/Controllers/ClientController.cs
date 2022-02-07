@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Order_Test.DataService;
 using Order_Test.Models;
 using System;
@@ -15,19 +16,35 @@ namespace Order_Test.Controllers
         {
             _dbContext = dbContext;
         }
+
+        [HttpGet]
         public IActionResult Index()
         {
-            IEnumerable<Client> clients = _dbContext.Clients;
-            //var clients = _dbContext.Clients.Where(x => x.FirstName.Contains(text))
-            //.Select(x => x.FirstName).ToList();
-            return View(clients);
+            return View();
         }
 
-        public IActionResult FindClient(string text)
+        [HttpPost]
+        public IActionResult Index(string text)
         {
-            var client = _dbContext.Clients.Where(x => x.FirstName.Contains(text))
-                .Select(x => x.FirstName).ToList();
-            return View(client);
+            ClientService service = new ClientService(_dbContext);
+            var result = service.GetClient(text);
+            TempData["search"] = JsonConvert.SerializeObject(result);
+            return RedirectToAction("SearchResult");
+        }
+
+
+        [HttpGet]
+        public IActionResult SearchResult()
+        {
+            var item = TempData["search"];
+            var list = JsonConvert.DeserializeObject<IEnumerable<Client>>((string)(item));
+            return View(list);
+        }
+
+        [HttpPost]
+        public IActionResult SearchResult(int? id)
+        {
+            return View();
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Order_Test.DataService;
+using Order_Test.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +21,22 @@ namespace Order_Test.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            var item = TempData["client"];
+            var client = JsonConvert.DeserializeObject<IEnumerable<Client>>((string)(item));
+
             return View();
         }
 
         [HttpPost]
-        public IActionResult Index(decimal price) 
+        public IActionResult Index(decimal price)
         {
-            return RedirectToAction("Home");
+
+            _dbContext.Add(new Order 
+            {
+                TotalPrice = price,
+
+            });
+            return View();
         }
     }
 
