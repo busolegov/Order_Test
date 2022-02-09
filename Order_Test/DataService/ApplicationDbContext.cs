@@ -14,14 +14,6 @@ namespace Order_Test.DataService
 
         }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Order>()
-        //        .HasOne(p => p.Client)
-        //        .WithMany(t => t.Orders)
-        //        .HasForeignKey(p => p.ClientId);
-        //}
-
         public DbSet<Client> Clients { get; set; }
         public DbSet<Order> Orders { get; set; }
     }

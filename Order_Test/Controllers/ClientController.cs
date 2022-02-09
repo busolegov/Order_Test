@@ -32,7 +32,6 @@ namespace Order_Test.Controllers
             return RedirectToAction("SearchResult");
         }
 
-
         [HttpGet]
         public IActionResult SearchResult()
         {
