@@ -1,37 +1,26 @@
 ﻿@model Order_Test.Models.Order
 
-    <label>@Model.Client.FirstName</label>
+<h5>Enter order information</h5>
 
-<form method="post">
-    <div class="col-4">
-        <label asp-for="TotalPrice"></label>
+<form method="post" asp-action="Index">
+    <div>
+        <div class="col-3">
+            <label asp-for="TotalPrice"></label>
+            <input type="number" asp-for="TotalPrice" class="form-control" />
+            <span asp-validation-for="TotalPrice" class="text-danger"></span>
+        </div>
+        <div class="col-3 my-2">
+            <label asp-for="Type"></label>
+            <select asp-for="Type" asp-items="@new SelectList(Enum.GetNames(typeof(Payment.PaymentType)))"></select>
+        </div>
+        <div class="col-3 my-2">
+            <label asp-for="Period"></label>
+            <select asp-for="Period" asp-items="@new SelectList(Enum.GetValues(typeof(Payment.PaymentPeriod)).Cast<Payment.PaymentPeriod>().Select(p=>(int)p).ToList())"></select>
+        </div>
+        <div class="col-3 my-2">
+            <input type="submit" class="btn btn-light my-1" value="Submit" />
+        </div>
     </div>
-    <div class="col-4">
-        <input asp-for="TotalPrice" class="form-control" />
-        <span asp-validation-for="TotalPrice" class="text-danger"></span>
-    </div>
-
-
-
-
-    <input asp-for="Type" type="radio" value="@Model.Type.HasFlag(Payment.PaymentType.Cash)" />
-    <span>Cash</span> <br />
-    <input asp-for="Type" type="radio" value="@Model.Type.HasFlag(Payment.PaymentType.Installment)" />
-    <span>Installment</span> <br />
-
-    <p>
-        <label for="phone">Choose :</label>
-        <select name="phone">
-            <option value="@Model.">12</option>
-            <option value="Lumia 950 XL">24</option>
-            <option value="HTC 10">36</option>
-        </select>
-    </p>
-
-    <br />
-    <p>
-        <input type="submit" value="Create" />
-    </p>
 </form>
 
 

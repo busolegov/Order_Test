@@ -12,10 +12,12 @@ namespace Order_Test.Models
         [Key]
         public int Id { get; set; }
 
-        [DisplayName("Имя")]
+        [DisplayName("First name")]
+        [Required]
         public string FirstName { get; set; }
 
-        [DisplayName("Фамилия")]
+        [DisplayName("Last name")]
+        [Required]
         public string LastName { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
     }

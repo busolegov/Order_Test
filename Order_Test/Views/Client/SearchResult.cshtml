@@ -1,26 +1,21 @@
 ﻿@model IEnumerable<Order_Test.Models.Client>
+<h5>Choose client from search result:</h5>
+@if (Model.Count() > 0)
+{
+    @foreach (var client in Model)
+    {
+        <div class="col-2 my-2">
+            <a asp-controller="Order" asp-action="Index" asp-route-Id="@client.Id" class="btn btn-light my-1">@client.FirstName @client.LastName</a>
+        </div>
+    }
+}
+else
+{
+    <label>No entries...</label>
+    <br />
+    <a class="nav-link btn btn-light my-1" asp-area="" asp-controller="Client" asp-action="Index">Back To Search</a>
+}
 
-<form method="post" asp-action="SearchResult">
 
-    <div>
-        <label>Choose client from search result:</label>
-        <br />
 
-        @if (Model.Count() > 0)
-        {
-            @foreach (var item in Model)
-            {
-                <label>@item.FirstName @item.LastName</label>
-                <div class="col">
-                    <input type="submit" class="btn btn-success w-25" value="Создать" />
-                </div>
-            }
-        }
-        else
-        {
-            <label>No entries...</label>
-            <br />
-            <a class="nav-link text-dark border w-50" asp-area="" asp-controller="Client" asp-action="Index">Back To Search</a>
-        }
-    </div>
-</form>
+

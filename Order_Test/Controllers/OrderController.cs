@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace Order_Test.Controllers
 {
     public class OrderController : Controller
@@ -21,22 +22,19 @@ namespace Order_Test.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var item = TempData["client"];
-            var client = JsonConvert.DeserializeObject<IEnumerable<Client>>((string)(item));
-
             return View();
         }
 
         [HttpPost]
-        public IActionResult Index(decimal price)
+        public async Task<IActionResult> Index(Order order, int id)
         {
-
-            _dbContext.Add(new Order 
+            if (!ModelState.IsValid)
             {
-                TotalPrice = price,
-
-            });
-            return View();
+                return View();
+            }
+            var orderService = new OrderService(_dbContext);
+            await orderService.SaveNewOrder(order, id);
+            return RedirectToAction("Index", "Client");
         }
     }
 

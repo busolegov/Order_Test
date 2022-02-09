@@ -40,11 +40,5 @@ namespace Order_Test.Controllers
             var list = JsonConvert.DeserializeObject<IEnumerable<Client>>((string)(item));
             return View(list);
         }
-
-        [HttpPost]
-        public IActionResult SearchResult(int? id)
-        {
-            return View();
-        }
     }
 }
